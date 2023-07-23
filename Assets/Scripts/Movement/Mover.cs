@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace RPG.Movement {
     public class Mover : MonoBehaviour {
+        [Header("References")]
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
 
@@ -19,6 +20,11 @@ namespace RPG.Movement {
 
         public void MoveTo(Vector3 destination) {
             agent.destination = destination;
+            agent.isStopped = false;
+        }
+
+        public void Stop() {
+            agent.isStopped = true;
         }
     }
 }
