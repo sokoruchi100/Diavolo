@@ -1,3 +1,4 @@
+using RPG.Combat;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,6 +7,7 @@ namespace RPG.Movement {
         [Header("References")]
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
+        [SerializeField] private Fighter fighter;
 
         private void Update() {
             UpdateAnimator();
@@ -16,6 +18,11 @@ namespace RPG.Movement {
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
             animator.SetFloat("forwardSpeed", speed);
+        }
+
+        public void StartMoveAction(Vector3 destination) {
+            fighter.Cancel();
+            MoveTo(destination);
         }
 
         public void MoveTo(Vector3 destination) {
