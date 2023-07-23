@@ -8,11 +8,14 @@ namespace RPG.Control {
         [SerializeField] private Fighter fighter;
 
         private void Update() {
-            InteractWithCombat();
-            InteractWithMovement();
+            if (InteractWithCombat()) { return; }
+
+            if (InteractWithMovement()) { return; }
+
+            Debug.Log("DOING NOTHING");
         }
 
-        private void InteractWithCombat() {
+        private bool InteractWithCombat() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach (RaycastHit hit in hits) {
@@ -21,21 +24,21 @@ namespace RPG.Control {
                 if (Input.GetMouseButtonDown(0)) {
                     fighter.Attack(target);
                 }
+                return true;
             }
+            return false;
         }
 
-        private void InteractWithMovement() {
-            if (Input.GetMouseButton(0)) {
-                MoveToCursor();
-            }
-        }
-
-        private void MoveToCursor() {
+        private bool InteractWithMovement() {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit) {
-                mover.MoveTo(hit.point);
+                if (Input.GetMouseButton(0)) {
+                    mover.MoveTo(hit.point);
+                }
+                return true;
             }
+            return false;
         }
 
         private static Ray GetMouseRay() {
