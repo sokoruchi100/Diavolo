@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6138221684512931225}
   - component: {fileID: 9119757380671080752}
   - component: {fileID: 234711464216011280}
+  - component: {fileID: 5746139811622719549}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 875576047429438758}
   animator: {fileID: 6490576894972486314}
+  actionScheduler: {fileID: 5746139811622719549}
   fighter: {fileID: 234711464216011280}
 --- !u!114 &234711464216011280
 MonoBehaviour:
@@ -122,7 +124,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mover: {fileID: 9119757380671080752}
+  actionScheduler: {fileID: 5746139811622719549}
   weaponRange: 2
+--- !u!114 &5746139811622719549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8784010368208849283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf94c4e469f27d41945a4c0cec4f8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8019167637453398560
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,7 @@ namespace RPG.Movement {
         [Header("References")]
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
+        [SerializeField] private ActionScheduler actionScheduler;
         [SerializeField] private Fighter fighter;
 
         private void Update() {
@@ -21,6 +23,7 @@ namespace RPG.Movement {
         }
 
         public void StartMoveAction(Vector3 destination) {
+            actionScheduler.StartAction(this);
             fighter.Cancel();
             MoveTo(destination);
         }

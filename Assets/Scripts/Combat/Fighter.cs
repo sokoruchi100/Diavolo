@@ -1,3 +1,4 @@
+using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace RPG.Combat {
     public class Fighter : MonoBehaviour {
         [Header("References")]
         [SerializeField] private Mover mover;
+        [SerializeField] private ActionScheduler actionScheduler;
 
         [Header("Settings")]
         [SerializeField] private float weaponRange = 2f;
@@ -26,6 +28,7 @@ namespace RPG.Combat {
         }
 
         public void Attack(CombatTarget combatTarget) {
+            actionScheduler.StartAction(this);
             target = combatTarget.transform;
         }
 
