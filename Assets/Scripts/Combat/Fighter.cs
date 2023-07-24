@@ -7,6 +7,7 @@ namespace RPG.Combat {
         [Header("References")]
         [SerializeField] private Mover mover;
         [SerializeField] private ActionScheduler actionScheduler;
+        [SerializeField] private Animator animator;
 
         [Header("Settings")]
         [SerializeField] private float weaponRange = 2f;
@@ -20,7 +21,12 @@ namespace RPG.Combat {
                 mover.MoveTo(target.position);
             } else {
                 mover.Cancel();
+                AttackBehaviour();
             }
+        }
+
+        private void AttackBehaviour() {
+            animator.SetTrigger("attack");
         }
 
         private bool GetIsInRange() {
@@ -34,6 +40,10 @@ namespace RPG.Combat {
 
         public void Cancel() {
             target = null;
+        }
+
+        public void Hit() {
+            
         }
     }
 }
