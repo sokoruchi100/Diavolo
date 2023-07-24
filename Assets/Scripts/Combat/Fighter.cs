@@ -36,12 +36,19 @@ namespace RPG.Combat {
             transform.LookAt(target.transform);
 
             if (timeSinceLastAttack >= timeBetweenAttacks) {
-                animator.SetTrigger("attack");
+                TriggerAttack();
                 timeSinceLastAttack = 0f;
             }
         }
 
+        private void TriggerAttack() {
+            animator.ResetTrigger("stopAttack");
+            animator.SetTrigger("attack");
+        }
+
         public void Hit() {
+            if (target == null) { return; }
+
             target.TakeDamage(weaponDamage);
         }
 
@@ -55,8 +62,13 @@ namespace RPG.Combat {
         }
 
         public void Cancel() {
-            animator.SetTrigger("stopAttack");
+            StopAttack();
             target = null;
+        }
+
+        private void StopAttack() {
+            animator.ResetTrigger("attack");
+            animator.SetTrigger("stopAttack");
         }
 
         public bool CanAttack(CombatTarget combatTarget) {
