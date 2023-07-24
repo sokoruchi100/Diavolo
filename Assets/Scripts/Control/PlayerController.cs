@@ -22,10 +22,10 @@ namespace RPG.Control {
             foreach (RaycastHit hit in hits) {
                 if (!hit.transform.TryGetComponent(out CombatTarget target)) { continue; }
 
-                if (!fighter.CanAttack(target)) { continue; }
+                if (!fighter.CanAttack(target.gameObject)) { continue; }
 
                 if (Input.GetMouseButtonDown(0)) {
-                    fighter.Attack(target);
+                    fighter.Attack(target.gameObject);
                 }
                 return true;
             }

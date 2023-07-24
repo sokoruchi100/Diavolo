@@ -56,7 +56,7 @@ namespace RPG.Combat {
             return Vector3.Distance(target.transform.position, transform.position) < weaponRange;
         }
 
-        public void Attack(CombatTarget combatTarget) {
+        public void Attack(GameObject combatTarget) {
             actionScheduler.StartAction(this);
             target = combatTarget.transform.GetComponent<Health>();
         }
@@ -71,7 +71,7 @@ namespace RPG.Combat {
             animator.SetTrigger("stopAttack");
         }
 
-        public bool CanAttack(CombatTarget combatTarget) {
+        public bool CanAttack(GameObject combatTarget) {
             return !combatTarget.GetComponent<Health>().IsDead();
         }
     }

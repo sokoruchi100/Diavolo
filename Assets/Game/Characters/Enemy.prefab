@@ -71,6 +71,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 875576047429438758, guid: 4defe62fefb05b14f801945f23571abc,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.245
+      objectReference: {fileID: 0}
     - target: {fileID: 6752165785673535242, guid: 4defe62fefb05b14f801945f23571abc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -157,6 +162,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4994863192707295014}
   m_SourcePrefab: {fileID: 100100000, guid: 4defe62fefb05b14f801945f23571abc, type: 3}
+--- !u!114 &3841242552175181156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 234711464216011280, guid: 4defe62fefb05b14f801945f23571abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3895342556049481588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757882400824973047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa39d0f64997bc4fb70605abfa58694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5757882400824973047 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8784010368208849283, guid: 4defe62fefb05b14f801945f23571abc,
@@ -187,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158d1fb180712d54ebf2a6c9fbc05bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fighter: {fileID: 3841242552175181156}
   chaseDistance: 5
 --- !u!136 &4994863192707295014
 CapsuleCollider:
