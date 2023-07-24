@@ -58,5 +58,9 @@ namespace RPG.Combat {
             animator.SetTrigger("stopAttack");
             target = null;
         }
+
+        public bool CanAttack(CombatTarget combatTarget) {
+            return !combatTarget.GetComponent<Health>().IsDead();
+        }
     }
 }
