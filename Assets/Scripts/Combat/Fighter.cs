@@ -3,7 +3,7 @@ using RPG.Movement;
 using UnityEngine;
 
 namespace RPG.Combat {
-    public class Fighter : MonoBehaviour {
+    public class Fighter : MonoBehaviour, IAction {
         [Header("References")]
         [SerializeField] private Mover mover;
         [SerializeField] private ActionScheduler actionScheduler;
@@ -19,7 +19,7 @@ namespace RPG.Combat {
             if (!GetIsInRange()) {
                 mover.MoveTo(target.position);
             } else {
-                mover.Stop();
+                mover.Cancel();
             }
         }
 
