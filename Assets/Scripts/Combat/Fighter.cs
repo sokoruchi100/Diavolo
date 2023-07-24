@@ -12,6 +12,7 @@ namespace RPG.Combat {
         [Header("Settings")]
         [SerializeField] private float weaponRange = 2f;
         [SerializeField] private float timeBetweenAttacks = 1f;
+        [SerializeField] private float weaponDamage = 10f;
         
         private Transform target;
         private float timeSinceLastAttack = 0f;
@@ -36,6 +37,11 @@ namespace RPG.Combat {
             }
         }
 
+        public void Hit() {
+            Health targetHealth = target.GetComponent<Health>();
+            targetHealth.TakeDamage(weaponDamage);
+        }
+
         private bool GetIsInRange() {
             return Vector3.Distance(target.position, transform.position) < weaponRange;
         }
@@ -47,10 +53,6 @@ namespace RPG.Combat {
 
         public void Cancel() {
             target = null;
-        }
-
-        public void Hit() {
-            
         }
     }
 }
