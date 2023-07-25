@@ -186,6 +186,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d379b43f7073c85489f3e0aa7bf18780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5224433327987955268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9119757380671080752, guid: 4defe62fefb05b14f801945f23571abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3895342556049481588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757882400824973047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f3002670151174eb3c435a84105113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5757882400824973047 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8784010368208849283, guid: 4defe62fefb05b14f801945f23571abc,
@@ -218,7 +230,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fighter: {fileID: 3841242552175181156}
   health: {fileID: 4828496508645555018}
+  mover: {fileID: 5224433327987955268}
+  actionScheduler: {fileID: 8768907443905892169}
   chaseDistance: 5
+  suspicionTime: 5
 --- !u!136 &4994863192707295014
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -248,3 +263,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3895342556049481588}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8768907443905892169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5746139811622719549, guid: 4defe62fefb05b14f801945f23571abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3895342556049481588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757882400824973047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf94c4e469f27d41945a4c0cec4f8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

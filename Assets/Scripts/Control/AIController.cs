@@ -1,5 +1,6 @@
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 using UnityEngine;
 
 namespace RPG.Control {
@@ -7,24 +8,47 @@ namespace RPG.Control {
         [Header("References")]
         [SerializeField] private Fighter fighter;
         [SerializeField] private Health health;
+        [SerializeField] private Mover mover;
+        [SerializeField] private ActionScheduler actionScheduler;
 
         [Header("Settings")]
         [SerializeField] private float chaseDistance = 5f;
+        [SerializeField] private float suspicionTime = 5f;
 
         private GameObject player;
+        private Vector3 guardPosition;
+        private float timeSinceLastSawPlayer = Mathf.Infinity;
 
         private void Start() {
             player = GameObject.FindWithTag("Player");
+            guardPosition = transform.position;
         }
 
         private void Update() {
             if (health.IsDead()) { return; }
 
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player)) {
-                fighter.Attack(player);
-            } else { 
-                fighter.Cancel();
+                timeSinceLastSawPlayer = 0;
+                AttackBehaviour();
+            } else if (timeSinceLastSawPlayer < suspicionTime) {
+                SuspicionBehaviour();
+            } else {
+                GuardBehaviour();
             }
+
+            timeSinceLastSawPlayer += Time.deltaTime;
+        }
+
+        private void GuardBehaviour() {
+            mover.StartMoveAction(guardPosition);
+        }
+
+        private void SuspicionBehaviour() {
+            actionScheduler.CancelCurrentAction();
+        }
+
+        private void AttackBehaviour() {
+            fighter.Attack(player);
         }
 
         private bool InAttackRangeOfPlayer() {
