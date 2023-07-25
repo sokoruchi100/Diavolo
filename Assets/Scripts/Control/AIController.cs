@@ -1,6 +1,7 @@
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using System;
 using UnityEngine;
 
 namespace RPG.Control {
@@ -10,14 +11,17 @@ namespace RPG.Control {
         [SerializeField] private Health health;
         [SerializeField] private Mover mover;
         [SerializeField] private ActionScheduler actionScheduler;
+        [SerializeField] private PatrolPath patrolPath;
 
         [Header("Settings")]
         [SerializeField] private float chaseDistance = 5f;
         [SerializeField] private float suspicionTime = 5f;
+        [SerializeField] private float waypointTolerance = 1f;
 
         private GameObject player;
         private Vector3 guardPosition;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
+        private int currentWaypointIndex = 0;
 
         private void Start() {
             player = GameObject.FindWithTag("Player");
@@ -33,14 +37,36 @@ namespace RPG.Control {
             } else if (timeSinceLastSawPlayer < suspicionTime) {
                 SuspicionBehaviour();
             } else {
-                GuardBehaviour();
+                PatrolBehaviour();
             }
 
             timeSinceLastSawPlayer += Time.deltaTime;
         }
 
-        private void GuardBehaviour() {
-            mover.StartMoveAction(guardPosition);
+        private void PatrolBehaviour() {
+            Vector3 nextPosition = guardPosition;
+
+            if (patrolPath != null) {
+                if (AtWaypoint()) {
+                    CycleWaypoint();
+                }
+                nextPosition = GetCurrentWaypoint();
+            }
+
+            mover.StartMoveAction(nextPosition);
+        }
+
+        private Vector3 GetCurrentWaypoint() {
+            return patrolPath.GetWaypoint(currentWaypointIndex);
+        }
+
+        private void CycleWaypoint() {
+            currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
+        }
+
+        private bool AtWaypoint() {
+            float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+            return distanceToWaypoint < waypointTolerance;
         }
 
         private void SuspicionBehaviour() {
