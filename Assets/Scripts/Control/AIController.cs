@@ -1,10 +1,13 @@
 using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
+        [Header("References")]
         [SerializeField] private Fighter fighter;
-        
+        [SerializeField] private Health health;
+
         [Header("Settings")]
         [SerializeField] private float chaseDistance = 5f;
 
@@ -15,6 +18,8 @@ namespace RPG.Control {
         }
 
         private void Update() {
+            if (health.IsDead()) { return; }
+
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player)) {
                 fighter.Attack(player);
             } else { 

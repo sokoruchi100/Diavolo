@@ -8,8 +8,11 @@ namespace RPG.Movement {
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
         [SerializeField] private ActionScheduler actionScheduler;
+        [SerializeField] private Health health;
 
         private void Update() {
+            agent.enabled = !health.IsDead();
+
             UpdateAnimator();
         }
 

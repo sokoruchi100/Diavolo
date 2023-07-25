@@ -1,19 +1,21 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control {
     public class PlayerController : MonoBehaviour {
         [Header("References")]
         [SerializeField] private Mover mover;
         [SerializeField] private Fighter fighter;
+        [SerializeField] private Health health;
 
         private void Update() {
+            if (health.IsDead()) { return; }
+
             if (InteractWithCombat()) { return; }
 
             if (InteractWithMovement()) { return; }
-
-            Debug.Log("DOING NOTHING");
         }
 
         private bool InteractWithCombat() {

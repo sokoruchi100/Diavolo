@@ -1,9 +1,10 @@
 using UnityEngine;
 
-namespace RPG.Combat {
+namespace RPG.Core {
     public class Health : MonoBehaviour {
         [Header("References")]
         [SerializeField] private Animator animator;
+        [SerializeField] private ActionScheduler actionScheduler;
 
         [Header("Settings")]
         [SerializeField] private float healthPoints = 100f;
@@ -25,8 +26,9 @@ namespace RPG.Combat {
         private void Die() {
             if (isDead) { return; }
 
-            animator.SetTrigger("die");
             isDead = true;
+            animator.SetTrigger("die");
+            actionScheduler.CancelCurrentAction();
         }
     }
 }
