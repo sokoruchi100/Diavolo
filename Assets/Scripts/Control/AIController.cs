@@ -16,11 +16,13 @@ namespace RPG.Control {
         [Header("Settings")]
         [SerializeField] private float chaseDistance = 5f;
         [SerializeField] private float suspicionTime = 5f;
+        [SerializeField] private float waypointDwellTime = 3f;
         [SerializeField] private float waypointTolerance = 1f;
 
         private GameObject player;
         private Vector3 guardPosition;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
+        private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         private int currentWaypointIndex = 0;
 
         private void Start() {
@@ -32,7 +34,7 @@ namespace RPG.Control {
             if (health.IsDead()) { return; }
 
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player)) {
-                timeSinceLastSawPlayer = 0;
+                
                 AttackBehaviour();
             } else if (timeSinceLastSawPlayer < suspicionTime) {
                 SuspicionBehaviour();
@@ -40,7 +42,12 @@ namespace RPG.Control {
                 PatrolBehaviour();
             }
 
+            UpdateTimers();
+        }
+
+        private void UpdateTimers() {
             timeSinceLastSawPlayer += Time.deltaTime;
+            timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         private void PatrolBehaviour() {
@@ -48,12 +55,15 @@ namespace RPG.Control {
 
             if (patrolPath != null) {
                 if (AtWaypoint()) {
+                    timeSinceArrivedAtWaypoint = 0;
                     CycleWaypoint();
                 }
                 nextPosition = GetCurrentWaypoint();
-            }
+        }
 
-            mover.StartMoveAction(nextPosition);
+            if (timeSinceArrivedAtWaypoint > waypointDwellTime) {
+                mover.StartMoveAction(nextPosition);
+            }
         }
 
         private Vector3 GetCurrentWaypoint() {
@@ -74,6 +84,7 @@ namespace RPG.Control {
         }
 
         private void AttackBehaviour() {
+            timeSinceLastSawPlayer = 0;
             fighter.Attack(player);
         }
 
